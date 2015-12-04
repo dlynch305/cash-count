@@ -12,12 +12,16 @@ class HomeViewController: UIViewController, UITextFieldDelegate {
     
     // MARK: Properties
     @IBOutlet var hourlyWageField: UITextField!
+    @IBOutlet var federalTaxField: UITextField!
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
         hourlyWageField.delegate = self
         hourlyWageField.keyboardType = .DecimalPad
+        
+        federalTaxField.delegate = self
+        federalTaxField.keyboardType = .DecimalPad
     }
 
     override func didReceiveMemoryWarning() {
@@ -29,6 +33,7 @@ class HomeViewController: UIViewController, UITextFieldDelegate {
         let countController = segue.destinationViewController as! CountViewController;
         
         countController.HOURLY_WAGE = hourlyWageField.text!.floatValue
+        countController.FEDERAL_TAX = federalTaxField.text!.floatValue / 100
     }
 
     // MARK: UITextFieldDelegate
@@ -36,10 +41,6 @@ class HomeViewController: UIViewController, UITextFieldDelegate {
         // Hide numeric keyboard
         textField.resignFirstResponder()
         return true
-    }
-    
-    func textFieldDidEndEditing(textField: UITextField) {
-       // hourlyWage = hourlyWageField.text?.floatValue
     }
     
     // MARK: Actions
