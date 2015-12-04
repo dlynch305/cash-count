@@ -14,9 +14,9 @@ class CountViewController: UIViewController {
     var HOURLY_WAGE:Float!
     var FEDERAL_TAX:Float!
     
-    var totalWageEarned:Float!
-    var netWageEarned:Float!
-    var wageTaxedFederal:Float!
+    var totalWageEarned:Float = 0.0
+    var netWageEarned:Float = 0.0
+    var wageTaxedFederal:Float = 0.0
     
     // MARK: Properties
     @IBOutlet weak var totalEarnedLabel: UILabel!
@@ -45,7 +45,7 @@ class CountViewController: UIViewController {
     }
     
     func calcWagePerSecond() {        
-        totalWageEarned = totalWageEarned + HOURLY_WAGE / (60 * 60)
+        totalWageEarned = totalWageEarned + (HOURLY_WAGE / (60 * 60))
         totalEarnedLabel.text = String(format: "$%.2f", totalWageEarned)
     }
     
