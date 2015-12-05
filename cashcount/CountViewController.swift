@@ -10,18 +10,6 @@ import UIKit
 
 class CountViewController: UIViewController {
     
-    // MARK: Variables
-    var HOURLY_WAGE:Double!
-    var FEDERAL_TAX:Double!
-    var SOCIAL_SECURITY:Double   = 0.0620
-    var MEDICARE:Double          = 0.0145
-    
-    var totalWageEarned:Double   = 0.0
-    var netWageEarned:Double     = 0.0
-    var wageTaxedFederal:Double  = 0.0
-    var wageTaxedSS:Double       = 0.0
-    var wageTaxedMedicare:Double = 0.0
-    
     // MARK: Properties
     @IBOutlet var totalEarnedLabel: UILabel!
     @IBOutlet var federalTaxLabel: UILabel!
@@ -44,6 +32,18 @@ class CountViewController: UIViewController {
         NSTimer.scheduledTimerWithTimeInterval(1.25, target: self, selector: Selector("main"), userInfo: nil, repeats: true)
     }
 
+    // MARK: Variables
+    var HOURLY_WAGE:Double!
+    var FEDERAL_TAX:Double!
+    var SOCIAL_SECURITY:Double   = 0.0620
+    var MEDICARE:Double          = 0.0145
+    
+    var totalWageEarned:Double   = 0.0
+    var netWageEarned:Double     = 0.0
+    var wageTaxedFederal:Double  = 0.0
+    var wageTaxedSS:Double       = 0.0
+    var wageTaxedMedicare:Double = 0.0
+    
     // MARK: Functions
     func main() {
         calcWagePerSecond()
