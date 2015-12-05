@@ -32,8 +32,8 @@ class HomeViewController: UIViewController, UITextFieldDelegate {
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         let countController = segue.destinationViewController as! CountViewController;
         
-        countController.HOURLY_WAGE = hourlyWageField.text!.floatValue
-        countController.FEDERAL_TAX = federalTaxField.text!.floatValue / 100
+        countController.HOURLY_WAGE = hourlyWageField.text!.doubleValue
+        countController.FEDERAL_TAX = federalTaxField.text!.doubleValue / 100
     }
 
     // MARK: UITextFieldDelegate
@@ -50,7 +50,7 @@ class HomeViewController: UIViewController, UITextFieldDelegate {
 
 // MARK: Extensions
 extension String {
-    var floatValue: Float {
-        return (self as NSString).floatValue
+    var doubleValue: Double {
+        return (self as NSString).doubleValue
     }
 }
