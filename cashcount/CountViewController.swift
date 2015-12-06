@@ -11,12 +11,19 @@ import UIKit
 class CountViewController: UIViewController {
     
     // MARK: Properties
+    // Wage
     @IBOutlet var totalEarnedLabel: UILabel!
-    @IBOutlet var federalTaxLabel: UILabel!
     @IBOutlet var netEarnedLabel: UILabel!
     
-    @IBOutlet var socialSecurityLabel: UILabel!
-    @IBOutlet var medicareLabel: UILabel!
+    // Tax
+    @IBOutlet var federalTaxLabel: UILabel!
+    @IBOutlet var ssTaxLabel: UILabel!
+    @IBOutlet var medicareTaxLabel: UILabel!
+
+    // Time
+    @IBOutlet var elapsedTime: UILabel!
+    
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -24,57 +31,82 @@ class CountViewController: UIViewController {
         let RED   = UIColor(red: 0.85, green: 0.0, blue: 0.0, alpha: 1.0)
         let GREEN = UIColor(red: 0.0, green: 0.85, blue: 0.0, alpha: 1.0)
         
-        federalTaxLabel.textColor     = RED
-        netEarnedLabel.textColor      = GREEN
-        socialSecurityLabel.textColor = RED
-        medicareLabel.textColor       = RED
+        federalTaxLabel.textColor  = RED
+        netEarnedLabel.textColor   = GREEN
+        ssTaxLabel.textColor       = RED
+        medicareTaxLabel.textColor = RED
         
-        NSTimer.scheduledTimerWithTimeInterval(1.25, target: self, selector: Selector("main"), userInfo: nil, repeats: true)
+        
+        // Perform calculations every second
+        NSTimer.scheduledTimerWithTimeInterval(1.00, target: self, selector: Selector("main"), userInfo: nil, repeats: true)
     }
 
     // MARK: Variables
+    // From Home View
     var HOURLY_WAGE:Double!
     var FEDERAL_TAX:Double!
+    // Statics
     var SOCIAL_SECURITY:Double   = 0.0620
     var MEDICARE:Double          = 0.0145
-    
-    var totalWageEarned:Double   = 0.0
-    var netWageEarned:Double     = 0.0
-    var wageTaxedFederal:Double  = 0.0
-    var wageTaxedSS:Double       = 0.0
-    var wageTaxedMedicare:Double = 0.0
+    // Wage
+    var totalEarned:Double   = 0.0
+    var netEarned:Double     = 0.0
+    // Tax
+    var taxedFederal:Double  = 0.0
+    var taxedSS:Double       = 0.0
+    var taxedMedicare:Double = 0.0
+    // Time
+    var seconds:Int = 0
+    var minutes:Int = 0
+    var hours:Int   = 0
     
     // MARK: Functions
     func main() {
+        // Handle elapsed time
+        seconds++;
+        if (seconds == 60) {
+            seconds = 0;
+            minutes++;
+        }
+        if (minutes == 60) {
+            minutes = 0;
+            hours++;
+        }
+        
+        elapsedTime.text = String(format: "%02d:%02d:%02d", hours, minutes, seconds)
+        
+        // Handle wage and tax calculations (not very object oriented friendly yet..)
         calcWagePerSecond()
         calcFederalTax()
         calcSocialSecurity()
         calcMedicare()
         
-        let totalWageTaxed = wageTaxedFederal + wageTaxedSS + wageTaxedMedicare
+        // Calculate total taxed wage
+        let totalTaxed = taxedFederal + taxedSS + taxedMedicare
         
-        netWageEarned = totalWageEarned - totalWageTaxed
-        netEarnedLabel.text = String(format: "$%.2f", netWageEarned)
+        // Update net wage
+        netEarned = totalEarned - totalTaxed
+        netEarnedLabel.text = String(format: "$%.2f", netEarned)
     }
     
     func calcWagePerSecond() {        
-        totalWageEarned = totalWageEarned + (HOURLY_WAGE / (60 * 60))
-        totalEarnedLabel.text = totalWageEarned.formatDouble
+        totalEarned = totalEarned + (HOURLY_WAGE / (60 * 60))
+        totalEarnedLabel.text = totalEarned.formatDouble
     }
     
     func calcFederalTax() {
-        wageTaxedFederal = totalWageEarned * FEDERAL_TAX
-        federalTaxLabel.text = wageTaxedFederal.formatDouble
+        taxedFederal = totalEarned * FEDERAL_TAX
+        federalTaxLabel.text = taxedFederal.formatDouble
     }
     
     func calcSocialSecurity() {
-        wageTaxedSS = totalWageEarned * SOCIAL_SECURITY
-        socialSecurityLabel.text = wageTaxedSS.formatDouble
+        taxedSS = totalEarned * SOCIAL_SECURITY
+        ssTaxLabel.text = taxedSS.formatDouble
     }
     
     func calcMedicare() {
-        wageTaxedMedicare = totalWageEarned * MEDICARE
-        medicareLabel.text = wageTaxedMedicare.formatDouble
+        taxedMedicare = totalEarned * MEDICARE
+        medicareTaxLabel.text = taxedMedicare.formatDouble
     }
 }
 
