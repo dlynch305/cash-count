@@ -23,13 +23,11 @@ class CountViewController: UIViewController {
     // Time
     @IBOutlet var elapsedTime: UILabel!
     
-    
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        let RED   = UIColor(red: 0.85, green: 0.0, blue: 0.0, alpha: 1.0)
-        let GREEN = UIColor(red: 0.0, green: 0.85, blue: 0.0, alpha: 1.0)
+        let RED   = UIColor(red: 0.90, green: 0.0, blue: 0.0, alpha: 1.0)
+        let GREEN = UIColor(red: 0.0, green: 0.90, blue: 0.0, alpha: 1.0)
         
         federalTaxLabel.textColor  = RED
         netEarnedLabel.textColor   = GREEN

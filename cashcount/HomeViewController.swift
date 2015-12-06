@@ -22,6 +22,9 @@ class HomeViewController: UIViewController, UITextFieldDelegate {
         
         federalTaxField.delegate = self
         federalTaxField.keyboardType = .DecimalPad
+        
+        let tap: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: "dismissKeyboard")
+        view.addGestureRecognizer(tap)
     }
 
     override func didReceiveMemoryWarning() {
@@ -39,11 +42,15 @@ class HomeViewController: UIViewController, UITextFieldDelegate {
     // MARK: UITextFieldDelegate
     func textFieldShouldReturn(textField: UITextField) -> Bool {
         // Hide numeric keyboard
-        textField.resignFirstResponder()
+        hourlyWageField.resignFirstResponder()
+        federalTaxField.resignFirstResponder()
         return true
     }
     
-    // MARK: Actions
+    // MARK: Functions
+    func dismissKeyboard() {
+        view.endEditing(true)
+    }
 
     
 }
