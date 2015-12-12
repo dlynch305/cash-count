@@ -23,6 +23,7 @@ class HomeViewController: UIViewController, UITextFieldDelegate {
         federalTaxField.delegate = self
         federalTaxField.keyboardType = .DecimalPad
         
+        // Respond to taps and dismiss the keyboard
         let tap: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: "dismissKeyboard")
         view.addGestureRecognizer(tap)
     }
