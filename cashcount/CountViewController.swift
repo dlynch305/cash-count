@@ -26,6 +26,8 @@ class CountViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        UIApplication.sharedApplication().idleTimerDisabled = true
+        
         let RED   = UIColor(red: 0.90, green: 0.0, blue: 0.0, alpha: 1.0)
         let GREEN = UIColor(red: 0.0, green: 0.90, blue: 0.0, alpha: 1.0)
         
